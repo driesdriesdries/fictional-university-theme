@@ -21,6 +21,10 @@
     //Im keeping this code here in order to remain a part of the git repo for the theme
         function university_post_types(){
             register_post_type('event', array(
+                'show_in_rest' => true,
+                'supports' => array('title','editor','excerpt'),
+                'rewrite' => array('slug' => 'events'),
+                'has_archive' => true,
                 'public' => true,
                 //'show_in_rest' => true,
                 'labels' => array(
