@@ -15,3 +15,23 @@
         add_theme_support('title-tag');
     }
     add_action('after_setup_theme', 'university_features');
+
+    //Registering a new Events Post Type
+    //These should ideally live in the wp-content directory in a folder called mu-plugins, in a file name of your choosing
+    //Im keeping this code here in order to remain a part of the git repo for the theme
+        function university_post_types(){
+            register_post_type('event', array(
+                'public' => true,
+                //'show_in_rest' => true,
+                'labels' => array(
+                    'name' => 'Events',
+                    'add_new_item' => 'Add New Event',
+                    'edit_item' => 'Edit Event',
+                    'all_items' => 'All Events',
+                    'singular_name' => 'Event'
+                ),
+                'menu_icon' => 'dashicons-calendar'
+            ));
+        }
+        add_action('init', 'university_post_types');
+
