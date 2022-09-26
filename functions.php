@@ -20,6 +20,7 @@
     //These should ideally live in the wp-content directory in a folder called mu-plugins, in a file name of your choosing
     //Im keeping this code here in order to remain a part of the git repo for the theme
         function university_post_types(){
+            //Event Post Type
             register_post_type('event', array(
                 'show_in_rest' => true,
                 'supports' => array('title','editor','excerpt'),
@@ -35,11 +36,35 @@
                 ),
                 'menu_icon' => 'dashicons-calendar'
             ));
+
+            //Program Post Type
+            register_post_type('program', array(
+                'show_in_rest' => true,
+                'supports' => array('title','editor'),
+                'rewrite' => array('slug' => 'programs'),
+                'has_archive' => true,
+                'public' => true,
+                'labels' => array(
+                    'name' => 'Programs',
+                    'add_new_item' => 'Add New Program',
+                    'edit_item' => 'Edit Program',
+                    'all_items' => 'All Programs',
+                    'singular_name' => 'Program'
+                ),
+                'menu_icon' => 'dashicons-awards'
+            ));
+
         }
         add_action('init', 'university_post_types');
 
         //Modifying a default query (ie, getting events query on an events archive URL)
         function university_adjust_queries ($query){
+            if (!is_admin() AND is_post_type_archive('program') AND is_main_query() ){
+                $query->set('orderby', 'title');
+                $query->set('order','ASC');
+                $query->set('posts_per_page','-1');
+            }
+            
             if(!is_admin() AND is_post_type_archive('event') AND $query->is_main_query() ){
                 $today = date('Ymd');
                 $query->set('meta_key', 'event_date');
