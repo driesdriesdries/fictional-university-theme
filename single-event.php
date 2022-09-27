@@ -26,6 +26,25 @@
             <div class="generic-content">
                 <?php the_content(); ?>
             </div>
+            
+            <?php 
+                //Below will return a wordpress post object
+                $relatedPrograms = get_field('related_programs');
+                //print_r($relatedPrograms);
+
+                if($relatedPrograms){
+                    echo '<hr class="section-break">';
+                    echo '<h2 class="headline headline--medium">Related Program(s)</h2>';
+                    echo '<ul class="link-list min-list">';
+                    foreach($relatedPrograms as $program){ ?>
+                    <?php //because we're not in a main loop, you cannot only use the_title(). You need to use the get_the_title() and pass in a wordpress object ?>
+                        <li class="xxx"><a href="<?php echo get_the_permalink($program); ?>"><?php echo get_the_title($program); ?></a></li>
+                    <?php }
+                    echo '</ul>';
+                }
+                
+            ?>
+
         </div> 
         
     <?php }
