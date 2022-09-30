@@ -3,17 +3,13 @@
     get_header();
 
     while(have_posts()){
-        the_post(); ?>
-
-        <div class="page-banner">
-            <div class="page-banner__bg-image" style="background-image: url(<?php echo get_theme_file_uri('images/ocean.jpg') ?>)"></div>
-                <div class="page-banner__content container container--narrow">
-                    <h1 class="page-banner__title"><?php the_title(); ?></h1>
-                    <div class="page-banner__intro">
-                    <p>DONT FORGET TO REPLACE ME LATER MFUCKER</p>
-                </div>
-            </div>
-        </div>
+        the_post(); 
+        pageBanner(array(
+            'title' => 'Hello there, this is the title',
+            'subtitle' => 'Hi this is the subtitle',
+            'photo' => 'https://img.freepik.com/free-photo/african-american-student-walking-street-talking-phone_1303-12696.jpg?w=740&t=st=1664539376~exp=1664539976~hmac=511c2787bc88a84188d1f5141c2a5f68672044a42fcc9dac597de37dc6c2804d'
+        ));
+        ?>
 
         <div class="container container--narrow page-section">
 
